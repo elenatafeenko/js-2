@@ -4,10 +4,15 @@ function ChessBoard(container) {
   var activeCell = null;
   var chessBoard = this; // mainObject
 
+  var cellsContainer = document.createElement('div');
+  var historyContainer = document.createElement('div');
+  container.appendChild(cellsContainer);
+  container.appendChild(historyContainer);
+  
   function setActiveCell(i, j) {
     i = +i;
     j = +j;
-    document.getElementById('place').innerText += ' ' + i + LETTERS[j-1];
+    historyContainer.innerText += ' ' + i + LETTERS[j-1];
     if (activeCell) {
       activeCell.classList.remove('active');
     }
@@ -19,7 +24,7 @@ function ChessBoard(container) {
     }
   }
 
-  function addCell(i, j) {
+  function addCell(i, j, place) {
     var element = document.createElement('div');
     element.className = 'cell';
 
@@ -59,7 +64,7 @@ function ChessBoard(container) {
     }
 
     cells.push(element);
-    container.appendChild(element);
+    cellsContainer.appendChild(element);
   }
 
   for (var i = 0; i < 9; i++) {
@@ -102,6 +107,10 @@ function ChessBoard(container) {
       setActiveCell(i, j);
     }
   });
+
+  chessBoard.addEventListener = function() {
+    container.addEventListener.apply(container, arguments);
+  }
 
 }
 
