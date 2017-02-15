@@ -8,11 +8,17 @@ function ChessBoard(container) {
   var historyContainer = document.createElement('div');
   container.appendChild(cellsContainer);
   container.appendChild(historyContainer);
+
+  chessBoard.activeAddress = null;
+  chessBoard.setActiveAddress = function(address) {
+    setActiveCell(address[0], LETTERS.indexOf(address[1]) + 1);
+  };
   
   function setActiveCell(i, j) {
     i = +i;
     j = +j;
-    historyContainer.innerText += ' ' + i + LETTERS[j-1];
+    chessBoard.activeAddress = '' + i + LETTERS[j-1];
+    historyContainer.innerText += ' ' + chessBoard.activeAddress;
     if (activeCell) {
       activeCell.classList.remove('active');
     }
@@ -24,7 +30,7 @@ function ChessBoard(container) {
     }
   }
 
-  function addCell(i, j, place) {
+  function addCell(i, j) {
     var element = document.createElement('div');
     element.className = 'cell';
 
@@ -116,9 +122,9 @@ function ChessBoard(container) {
 
 var chessBoard1 = new ChessBoard(document.getElementById('chessContainer'));
 
-
-
-
-// Научиться обрабатывать стрелки клавиатуры таким образом, чтобы активную ячейку из предыдущего пункта можно было
-// перемещать по доске. Если ячейка выходит за границы таблицы – она должна появиться с другой стороны.
-// При перемещении ячейки, так же должен извлекаться ее адрес.
+// открытые свойства:
+// 1 activeAddress - для получения активного адреса ячейки
+// открытые методы:
+// 1 setActiveAddress - для установки активной ячейки
+// 2 addEventListener - для подписки на события
+// остальные методы и свойства скрыты т.к. не нужны для работы с объектом шахматной доски
