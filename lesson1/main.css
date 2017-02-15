@@ -1,0 +1,17 @@
+div.cell {
+    width: 20px;
+    height: 20px;
+    float: left;
+    border: 1px solid black;
+    text-align: center;
+}
+div.figure {
+    background-image: url('./Chess_Pieces_Sprite.png');
+    background-size: 120px 40px;
+}
+div.cell.active {
+    border: 1px solid red;
+}
+div.cell.clickable {
+    cursor: pointer;
+}
