@@ -1,0 +1,21 @@
+[{
+  "place": "1A",
+  "type": "rook",
+  "color": "black"
+}, {
+  "place": "1B",
+  "type": "knight",
+  "color": "black"
+}, {
+  "place": "1C",
+  "type": "bishop",
+  "color": "black"
+}, {
+  "place": "1E",
+  "type": "king",
+  "color": "black"
+}, {
+  "place": "1F",
+  "type": "queen",
+  "color": "black"
+}]
