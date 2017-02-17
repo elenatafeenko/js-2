@@ -18,16 +18,12 @@ function ChessBoard(container) {
     i = +i;
     j = +j;
     chessBoard.activeAddress = '' + i + LETTERS[j-1];
-    historyContainer.innerText += ' ' + chessBoard.activeAddress;
+    historyContainer.innerText = chessBoard.activeAddress;
     if (activeCell) {
       activeCell.classList.remove('active');
     }
-    for (var k = 0; k < cells.length; k++) {
-      if (cells[k].dataset.i == i && cells[k].dataset.j == j) {
-        cells[k].classList.add('active');
-        activeCell = cells[k];
-      }
-    }
+    activeCell = document.getElementById(chessBoard.activeAddress);
+    activeCell.classList.add('active');
   }
 
   function addCell(i, j) {
@@ -62,8 +58,7 @@ function ChessBoard(container) {
       }
 
       element.classList.add('clickable');
-      element.dataset.i = i;
-      element.dataset.j = j;
+      element.id = '' + i + LETTERS[j-1];
       element.addEventListener('click', function() {
         setActiveCell(i, j);
       });
@@ -83,41 +78,38 @@ function ChessBoard(container) {
     if (!activeCell) {
       return;
     }
+    
+    var activeCellId = activeCell.id;
+    var activeI = +activeCellId[0];
+    var activeJ = LETTERS.indexOf(activeCellId[1]) + 1;
+    
     if (event.keyCode === 37) { // left
-      var i = activeCell.dataset.i;
-      var j = activeCell.dataset.j - 1;
-      if (j == 0) {
-        j = 8;
+      activeJ -= 1;
+      if (activeJ === 0) {
+        activeJ = 8;
       }
-      setActiveCell(i, j);
     } else if (event.keyCode === 38) { // top
-      var i = activeCell.dataset.i - 1;
-      var j = activeCell.dataset.j;
-      if (i == 0) {
-        i = 8;
+      activeI -= 1;
+      if (activeI === 0) {
+        activeI = 8;
       }
-      setActiveCell(i, j);
     } else if (event.keyCode === 39) { // right
-      var i = activeCell.dataset.i;
-      var j = +activeCell.dataset.j + 1;
-      if (j == 9) {
-        j = 1;
+      activeJ += 1;
+      if (activeJ === 9) {
+        activeJ = 1;
       }
-      setActiveCell(i, j);
     } else if (event.keyCode === 40) { // bottom
-      var i = +activeCell.dataset.i + 1;
-      var j = activeCell.dataset.j;
-      if (i == 9) {
-        i = 1;
+      activeI += 1;
+      if (activeI === 9) {
+        activeI = 1;
       }
-      setActiveCell(i, j);
     }
+    setActiveCell(activeI, activeJ);
   });
 
   chessBoard.addEventListener = function() {
     container.addEventListener.apply(container, arguments);
-  }
-
+  };
 }
 
 var chessBoard1 = new ChessBoard(document.getElementById('chessContainer'));
