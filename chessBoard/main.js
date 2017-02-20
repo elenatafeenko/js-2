@@ -10,13 +10,13 @@ function ChessBoard(container) {
 
   chessBoard.activeAddress = null;
   chessBoard.setActiveAddress = function(address) {
-    setActiveCell(address[0], LETTERS.indexOf(address[1]) + 1);
+    setActiveCell(LETTERS.indexOf(address[1]) + 1, address[0]);
   };
   
   function setActiveCell(i, j) {
     i = +i;
     j = +j;
-    chessBoard.activeAddress = '' + i + LETTERS[j-1];
+    chessBoard.activeAddress = '' + LETTERS[j-1] + i;
     historyContainer.innerText = chessBoard.activeAddress;
     if (activeCell) {
       activeCell.classList.remove('active');
@@ -48,24 +48,8 @@ function ChessBoard(container) {
       element.style.clear = 'left';
       element.innerText = i;
     } else {
-      // if (i === 1 || i === 2 || i === 7 || i === 8) { // figure
-      //   if (i === 2 || i === 7) {
-      //     addFigure(element, 'pown', i < 4 ? 'black' : 'white');
-      //   } else if (j === 1 || j === 8) {
-      //     addFigure(element, 'rook', i < 4 ? 'black' : 'white');
-      //   } else if (j === 2 || j === 7) {
-      //     addFigure(element, 'knight', i < 4 ? 'black' : 'white');
-      //   } else if (j === 3 || j === 6) {
-      //     addFigure(element, 'bishop', i < 4 ? 'black' : 'white');
-      //   } else if ((j === 4 && i === 1) || (j === 5 && i === 8)) {
-      //     addFigure(element, 'queen', i < 4 ? 'black' : 'white');
-      //   } else if ((j === 5 && i === 1) || (j === 4 && i === 8)) {
-      //     addFigure(element, 'king', i < 4 ? 'black' : 'white');
-      //   }
-      // }
-
       element.classList.add('clickable');
-      element.id = '' + i + LETTERS[j-1];
+      element.id = '' + LETTERS[j-1] + i;
       element.addEventListener('click', function() {
         setActiveCell(i, j);
       });
@@ -92,8 +76,13 @@ function ChessBoard(container) {
     } else {
       var figuresData = JSON.parse(xhr.responseText);
       for (var i = 0; i < figuresData.length; i++) {
-        var element = document.getElementById(figuresData[i].place);
-        addFigure(element, figuresData[i].type, figuresData[i].color);
+        var place = figuresData[i].place;
+        if (/^[A-H][1-8]$/.test(place)) {
+          var element = document.getElementById(place);
+          addFigure(element, figuresData[i].type, figuresData[i].color);
+        } else {
+          console.log('Invalid place format: ' + place + '\nShould be like A6');
+        }
       }
     }
 
@@ -105,8 +94,8 @@ function ChessBoard(container) {
     }
     
     var activeCellId = activeCell.id;
-    var activeI = +activeCellId[0];
-    var activeJ = LETTERS.indexOf(activeCellId[1]) + 1;
+    var activeI = +activeCellId[1];
+    var activeJ = LETTERS.indexOf(activeCellId[0]) + 1;
     
     if (event.keyCode === 37) { // left
       activeJ -= 1;

@@ -1,21 +1,29 @@
 [{
-  "place": "1A",
+  "place": "A1",
   "type": "rook",
   "color": "black"
 }, {
-  "place": "1B",
+  "place": "B1",
   "type": "knight",
   "color": "black"
 }, {
-  "place": "1C",
+  "place": "C1",
   "type": "bishop",
   "color": "black"
 }, {
-  "place": "1E",
+  "place": "E1",
   "type": "king",
   "color": "black"
 }, {
-  "place": "1F",
+  "place": "F1",
+  "type": "queen",
+  "color": "black"
+}, {
+  "place": "A9",
+  "type": "queen",
+  "color": "black"
+}, {
+  "place": "a6",
   "type": "queen",
   "color": "black"
 }]

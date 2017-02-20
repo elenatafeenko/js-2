@@ -2,7 +2,7 @@ div.cell {
     width: 50px;
     height: 50px;
     float: left;
-    border: 1px solid black;
+    border: 2px solid black;
     text-align: center;
 }
 div.figure {
@@ -10,7 +10,7 @@ div.figure {
     background-size: 600% 200%;
 }
 div.cell.active {
-    border: 1px solid red;
+    border: 2px solid red;
 }
 div.cell.clickable {
     cursor: pointer;
